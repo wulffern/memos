@@ -2,7 +2,7 @@
 abstract: |
   I explain how diodes work.
 author:
-- Carsten Wulff, *2021-07-08*, v0.1.0
+- Carsten Wulff, *2022-05-07*, v0.1.0
 title: Diodes
 documentclass: IEEEtran
 papersize: a4
@@ -216,7 +216,8 @@ $$ \ln{n_i} = \ln{2} + \frac{3}{4}\ln{\frac{4 \pi^2k^2 m_n^* m_p^*}{h^4}} + \fra
 
 with $E_G = q V_G$ and inserting back into equation for $V_D$
 
-$$ V_D = \frac{kT}{q}(\ell  - 3 \ln T) + V_G$$  
+$$ V_D = \frac{kT}{q}(\ell  - 3 \ln T) + V_G $$ 
+
 
 Where $\ell$ is temperature independent, and given by
 
@@ -224,14 +225,55 @@ $$ \ell= \ln{I_D} - \ln{Aq} - \ln{\left (\frac{D_n}{L_n N_A} +
 \frac{D_p}{L_p N_D}\right)} - \ln 2 - \frac{3}{4}\ln{\frac{4 \pi^2k^2m_n^* m_p^*}{h^4}} $$
 
 
-The equations, and some assumed coefficients can be seen in  [vd.py]() and
-result below.
+From  equations above we can see that at 0 K, we expect the diode voltage to be
+equal to the bandgap of silicon. Although it's not trivial to see that the diode
+voltage has a negative temperature coefficient, if you do compute it as in
+[vd.py](), then you'll see it decreases. 
+
+The slope of the diode voltage can be seen to depend on the area, the current,
+doping, diffusion contstant, diffusion length and the effctive masses. 
+
+The figure below shows the $V_D$ and the deviation of $V_D$ from a straight line. The
+non-linear component of $V_D$ is only a few mV. If we could combine $V_D$ with a
+voltage that increased with temperature, then we could get a stable voltage
+across temperature to within a few mV.
+
 
 ![](vd.pdf)
 
+# Bandgap references
+
+Assume we have a circuit like shown in the figure below
+
+![](l3_ptat.pdf)
+
+Here we have two diodes, biased at different current densities. The voltage on
+the left diode $V_{D1}$ is equal to the sum of the voltage on the right diode $V_{D2}$ and voltage
+accross the resistor $R_1$. The current in the two diodes are the same due to
+the current mirror. A such, we have that
+
+$$ I_S e^\frac{qV_{D1}}{kT} = N I_S e^\frac{qV_{D2}}{kT} $$
+
+Taking logartihm of both sides, and rearranging, we see that 
+
+$$ V_{D1} - V_{D2} = \frac{kT}{q}\ln{N}$$
+
+Or that the difference between two diode voltages biased at different current densities is proportional to absolute
+temperature. 
+
+In the circuit above, this $\Delta V_D$ is across the resistor
+$R_1$, as such, the $I_D  = \Delta V_D/R_1$. We have a current that is
+proportional to temperature.
+
+If we copied the current, and sent it into a series combination of a resistor
+$R_2$ and a diode, we could scale the $R_2$ value to give us the exactly right
+slope to compensate for the negative slope of the $V_D$ voltage. 
+
+The voltage across the resistor and diode would be constant over temperature,
+with the small exception of the non-linear component of $V_D$.
+
+
 
 # References
-
-
 [^1]: It doesn't stop being magic just because you know how it works. -- Terry Pratchett, The Wee Free Men
 [^2]: Simplify as mutch as possible, but no more. -- Einstein
