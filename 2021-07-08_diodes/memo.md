@@ -228,7 +228,7 @@ $$ \ell= \ln{I_D} - \ln{Aq} - \ln{\left (\frac{D_n}{L_n N_A} +
 From  equations above we can see that at 0 K, we expect the diode voltage to be
 equal to the bandgap of silicon. Although it's not trivial to see that the diode
 voltage has a negative temperature coefficient, if you do compute it as in
-[vd.py](), then you'll see it decreases. 
+[vd.py](https://github.com/wulffern/memos/blob/main/2021-07-08_diodes/vd.py), then you'll see it decreases. 
 
 The slope of the diode voltage can be seen to depend on the area, the current,
 doping, diffusion contstant, diffusion length and the effctive masses. 
