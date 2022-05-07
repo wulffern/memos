@@ -17,3 +17,5 @@ clean:
 	-rm build/*.ttt
 	-rm build/*.xml
 	-rm build/*.pdf
+	-rm build/*.tex
+	-rm build/*.bcf
