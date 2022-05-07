@@ -59,7 +59,7 @@ def calc_ni(T):
 # |  |
 # |----------------- Ev = Valence band
 #
-    Eg = 1.1 *eV  #Bandgap of Silicon, changes with temperature, but we ignore that
+    Eg = 1.12 *eV  #Bandgap of Silicon, changes with temperature, but we ignore that
 
 # The mass of electrons and holes are not constant with temperature, however, let's assume they are, and let's ignore the
 # fact that the effective mass is not the same for holes and electrons
