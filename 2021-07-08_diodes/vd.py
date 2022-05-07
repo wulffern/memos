@@ -118,4 +118,6 @@ if __name__ == "__main__":
     plt.ylabel("Non-linear component (mV)")
     plt.xlabel("Temperature [C]")
 
+    plt.savefig("media/vd.pdf")
+
     plt.show()

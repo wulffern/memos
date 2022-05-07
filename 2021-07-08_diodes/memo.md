@@ -224,62 +224,13 @@ $$ \ell= \ln{I_D} - \ln{Aq} - \ln{\left (\frac{D_n}{L_n N_A} +
 \frac{D_p}{L_p N_D}\right)} - \ln 2 - \frac{3}{4}\ln{\frac{4 \pi^2k^2m_n^* m_p^*}{h^4}} $$
 
 
+The equations, and some assumed coefficients can be seen in  [vd.py]() and
+result below.
+
+![](vd.pdf)
 
 
-
-
-
-The width of a depletion region in the n-type material can be
-approximated by Equation
-[\[eqn:width\]](#eqn:width){reference-type="ref" reference="eqn:width"}
-, where $l_{1}$ is Equation [\[eqn:l1\]](#eqn:l1){reference-type="ref"
-reference="eqn:l1"} , where $\varepsilon_{0}$ is the permittivity of
-free space ($8.854 \times 10^{12}$ F/m), and $K_{s} = 11.8$ the relative
-permittivity of silicon. At $V_{R} = 0$, the depletion width is $l_{1}$.
-As we increase $V_{R}$ the depletion region will grow, but it's not
-proportional to $V_{R}$. The depletion width has the same equation for
-p-type, just replace $N_{A}$ with $N_{D}$.
-
-$$x_n(V_R) = l_1 \sqrt{1 + \frac{V_R}{\Phi_0}} 
-    \label{eqn:width}$$
-
-$$l_1 = \sqrt{\frac{2K_s\varepsilon_0}{q\Phi_0}\frac{N_A}{N_D(N_A +
-      N_D)}} 
-    \label{eqn:l1}$$
-
-Remember that $I = C \frac{dV}{dt}$, and $I = \frac{dQ}{dt}$ thus
-$C= \frac{dQ}{dV}$, so if we find the charge in the depletion region,
-then we can calculate the small signal capacitance. For the n-side the
-depletion region charge per unit area can be approximated by
-$Q = qN_D x_n(V_R)$ so the capacitance per unit area is Equation
-[\[eqn:dcap\]](#eqn:dcap){reference-type="ref" reference="eqn:dcap"} ,
-where $C_{j0}$ is Equation [\[eqn:cj0\]](#eqn:cj0){reference-type="ref"
-reference="eqn:cj0"}
-
-$$C = \frac{C_{j0}}{\sqrt{1 + \frac{V_R}{\Phi_0} } }
-    \label{eqn:dcap}$$
-
-$$C_{j0} = \frac{qN_D l_1}{2} =
-  \sqrt{\frac{qK_s\varepsilon_0}{2\Phi_0}\frac{N_A N_D}{N_A +
-      N_D}} 
-    \label{eqn:cj0}$$
-
-# Avalance breakdown
-
-If the reverse bias across the depletion region becomes large enough,
-then any minority carrier that stumbles into the depletion region can
-become accelerated to high enough energy such that it creates a
-electron/hole pair (ehp) when it impacts the crystal lattice (impact
-ionization), this new electron will also be accelerated, impact, new
-ehp, and so on. This avalanche of electrons will give a current that can
-effectively increase without limit. Suddenly you have a enormous current
-flowing in your reverse diode. This avalance current can be triggered by
-ESD, and it has killed devices, which make pretty pictures in a scanning
-electron microscope, but it's never what we want.
-
-# What
-
-# Conclusion
+# References
 
 
 [^1]: It doesn't stop being magic just because you know how it works. -- Terry Pratchett, The Wee Free Men
