@@ -28,18 +28,17 @@ Eg = 1.12 *eV #Bandgap of Silicon, changes with temperature, but we ignore that
 
 
 
+mn = m0
+mp = m0
+
+
 def calc_ni(T):
     #Calculate intrinsic carrier concentration as a function of temperature in Kelvin
 
-    #http://apachepersonal.miun.se/~gorthu/halvledare/Effective%20mass%20in%20semiconductors.htm
-    # According to above, the electron mass for density of states calculation is
-    mn = m0
-    mp = m0
-
 # The intrinsic carrier concentration depends on the fermi level and the density of states, which depends
 # on the effective mass of electrons and holes. See page 90 - 95 in Streetman
-    Nc = 2*np.sqrt(np.power((2*pi*k*T*mn)/(h*h),3))
-    Nv = 2*np.sqrt(np.power((2*pi*k*T*mp)/(h*h),3))
+    Nc = 2*np.sqrt(np.power((2*pi*k*T*mn)/(h**2),3))
+    Nv = 2*np.sqrt(np.power((2*pi*k*T*mp)/(h**2),3))
 
     ni = np.sqrt(Nc*Nv)*np.exp(-Eg/(2*k*T))
     return ni*cm3
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     #- Use full calculation
     n_i_adv = calc_ni(T)
 
-    #- Doping consentrations
+    #- Doping consentrations@
     NA = 1e19
     ND = 1e19
 
@@ -75,18 +74,36 @@ if __name__ == "__main__":
     tau_n = 8e-8
     tau_p = 8e-8
 
-    I_s = q*A*n_i_adv**2*(1/NA*np.sqrt(Dn/tau_n) + 1/ND*np.sqrt(Dp/tau_n))
+    I_s = q*A*n_i_adv**2*(1/NA*np.sqrt(Dn/tau_n) + 1/ND*np.sqrt(Dp/tau_p))
 
     I_c = 1e-6
 
-    Vd = k*T/q*np.log(I_c/I_s)
+    V_T = k*T/q
+
+    Vd = V_T*np.log(I_c/I_s)
 
     C = T - 273.15
+
+    Bc = 2*np.sqrt(np.power((2*pi*k*mn)/(h**2),3))
+    Bv = 2*np.sqrt(np.power((2*pi*k*mp)/(h**2),3))
+    Nc = 2*np.sqrt(np.power((2*pi*k*T*mn)/(h**2),3))
+    Nv = 2*np.sqrt(np.power((2*pi*k*T*mp)/(h**2),3))
+
+    #ell = np.log(I_c) - np.log(A*q) - np.log(((1/NA*np.sqrt(Dn/tau_n) + 1/ND*np.sqrt(Dp/tau_p)))) - np.log(Bv*Bc*cm3)
+
+    ni_2_log = 2*np.log(np.sqrt(Bc*Bv)) + 3*np.log(T) + 2*np.log(cm3) - Eg/(k*T)
+
+    ell = np.log(I_c) - np.log(q*A*(1/NA*np.sqrt(Dn/tau_n) + 1/ND*np.sqrt(Dp/tau_p))) - 2*np.log(np.sqrt(Bc*Bv)) - 2*np.log(cm3)
+
+    vd_paper = V_T*(ell - 3*np.log(T)) + Eg/eV
+
+    print(ell)
 
     #- Find error from linear
     line = np.polynomial.polynomial.polyfit(T,Vd,1)
     vd_lin_err = Vd - (T*line[1] + line[0])
 
+    #vd_paper = k*T/q*(ell - 3*np.log(T) )  + Eg/q
 
     plt.figure(1)
 
@@ -106,6 +123,7 @@ if __name__ == "__main__":
     #- Plot Vd
     plt.subplot(2,1,1)
     plt.plot(C,Vd)
+    #plt.plot(C,vd_paper,"r")
     plt.grid(True)
     plt.ylabel("Diode voltage [V]")
 

@@ -46,6 +46,7 @@ $endif$
 \usepackage{flafter}
 \usepackage{booktabs}
 \usepackage{url}
+\usepackage[colorlinks=true ,urlcolor=blue,urlbordercolor={0 1 1}]{hyperref}
 \usepackage{textcomp}
 \usepackage{dirtytalk}
 \setbeamertemplate{caption}[numbered]
