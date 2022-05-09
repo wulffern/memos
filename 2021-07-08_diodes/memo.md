@@ -226,12 +226,14 @@ $$ V_D = \frac{kT}{q}(\ell  - 3 \ln T) + V_G $$
 
 Where $\ell$ is temperature independent, and given by
 
-$$ \ell= \ln{I_D} - \ln{Aq} - \ln{\left (\frac{D_n}{L_n N_A} +
-\frac{D_p}{L_p N_D}\right)} - \ln 2 - \frac{3}{4}\ln{\frac{4 \pi^2k^2m_n^* m_p^*}{h^4}} $$
+$$ \ell= \ln{\frac{I_D}{2Aq}} - \ln{\left (\frac{D_n}{L_n N_A} +
+\frac{D_p}{L_p N_D}\right)} - \frac{3}{4}\ln{\frac{4 \pi^2k^2m_n^* m_p^*}{h^4}} $$
 
 
 From  equations above we can see that at 0 K, we expect the diode voltage to be
-equal to the bandgap of silicon. Although it's not trivial to see that the diode
+equal to the bandgap of silicon. Diodes don't work at 0K though. 
+
+Although it's not trivial to see that the diode
 voltage has a negative temperature coefficient, if you do compute it as in
 [vd.py](https://github.com/wulffern/memos/blob/main/2021-07-08_diodes/vd.py), then you'll see it decreases. 
 
