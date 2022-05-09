@@ -29,9 +29,13 @@ This paper attempts to explain in the simplest possible terms how a diode works 
 
 # Intrinsic carrier concentration
 
+<!--
 Integrated circuits use single crystaline silicon. The silicon crystal unit cell
 is a diamond faced cubic with 8 atoms in the corners spaced at 0.543 nm, 6 at the center of the
-faces, and 4 atoms inside the unit cell at a nearest neighbor distance of 0.235 nm.
+faces, and 4 atoms inside the unit cell at a nearest neighbor distance of 0.235
+nm. 
+-->
+
 
 The intrinsic carrier concentration of silicon, or how many free electrons and
 holes at a given temperature, is given by 
@@ -58,10 +62,11 @@ $$ n_{i} = 1.45e10 \frac{TNOM}{300.15} \sqrt{\frac{T}{300.15} \exp^{21.5565981
 - \frac{E_g}{2kT}}} $$
 
 
-Comparing the three models, we see the shape of BSIM and the full equation is
+Comparing the three models in Fig. \ref{fig:ni}, we see the shape of BSIM and
+the full equation is almost
 the same, while the "doubling every 11 degrees" is just wrong.
 
-![](ni.pdf)
+![Intrinsic carrier concentration versus temperature\label{fig:ni}](ni.pdf)
 
 
 At room temperature this intrinsic carrier consentration is about
@@ -233,20 +238,17 @@ voltage has a negative temperature coefficient, if you do compute it as in
 The slope of the diode voltage can be seen to depend on the area, the current,
 doping, diffusion contstant, diffusion length and the effctive masses. 
 
-The figure below shows the $V_D$ and the deviation of $V_D$ from a straight line. The
+Fig. \ref{fig:vd} shows the $V_D$ and the deviation of $V_D$ from a straight line. The
 non-linear component of $V_D$ is only a few mV. If we could combine $V_D$ with a
 voltage that increased with temperature, then we could get a stable voltage
 across temperature to within a few mV.
 
 
-![](vd.pdf)
+![Diode forward voltage as a function of temperature \label{fig:vd}](vd.pdf)
 
 # Bandgap references
 
-Assume we have a circuit like shown in the figure below
-
-![](l3_ptat.pdf)
-
+Assume we have a circuit like Fig. \ref{fig:ptat} 
 Here we have two diodes, biased at different current densities. The voltage on
 the left diode $V_{D1}$ is equal to the sum of the voltage on the right diode $V_{D2}$ and voltage
 accross the resistor $R_1$. The current in the two diodes are the same due to
@@ -271,6 +273,8 @@ slope to compensate for the negative slope of the $V_D$ voltage.
 
 The voltage across the resistor and diode would be constant over temperature,
 with the small exception of the non-linear component of $V_D$.
+
+![Circuit to generate a current proportional to kT\label{fig:ptat}](l3_ptat.pdf)
 
 
 
