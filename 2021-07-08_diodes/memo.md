@@ -46,7 +46,7 @@ nm.
 
 If we assume the crystal is perfect, then at 0 Kelvin all electrons will be part of
 covalent bonds. Each silicon atom share 4
-electrons with it's neighbors. All the neighbors also share electrons, and
+electrons with its neighbors. All the neighbors also share electrons, and
 nowhere is there an vacant state, or a hole, in the valence band. If such a
 crystal were to exist, it would not conduct any current, as the charges cannot
 move. 
@@ -115,7 +115,7 @@ current](https://en.wikipedia.org/wiki/Diffusion_current) given by
 
 $$ I_{\text{diffusion}} = - qD_n \frac{\partial \rho}{\partial x}$$
 
-where $q$ is the charge, $\rho$ is the charge density, and  $D  $ is a diffusion
+where $q$ is the charge, $\rho$ is the charge density, and  $D$ is a diffusion
 coefficient that through the [Einstein
 relation](https://en.wikipedia.org/wiki/Diffusion_current) can be expressed as
 $D = \mu k T$, where mobility $\mu = v_d/F$ is the ratio of drift velocity $v_d$
@@ -144,7 +144,7 @@ movement, strain of silicon,  and I'm not entirely sure what is the correct numb
 computing density of states. 
 
 In [@cjm11] they claim the intrinsic carrier concentration is a constant, although
-they do mention $n_i$ doubles every 11 degrees. In BSIM 4.8 [@bsim] $n_i$ is
+they do mention $n_i$ doubles every 11 degrees Kelvin. In BSIM 4.8 [@bsim] $n_i$ is
 
 $$ n_{i} = 1.45e10 \frac{TNOM}{300.15} \sqrt{\frac{T}{300.15} \exp^{21.5565981
 - \frac{E_g}{2kT}}} $$
