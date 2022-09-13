@@ -3,7 +3,6 @@ abstract: |
   
 author: |
  \IEEEauthorblockN{Carsten Wulff}
- \textit{Carsten Wulff Software}, 
  carsten@wulff.no
 title: Channel model for ranging in a real world indoor communcation channels
 documentclass: IEEEtran
@@ -103,6 +102,8 @@ reflections and re-transmissions.
 
 # Channel model
 
+The code for the channel model can be found at [model.py](https://github.com/wulffern/memos/blob/main/2022-09-12_Range_model/model.py).
+
 Assume a direct ray. Assume that other rays, $\vec{R}$ have uniformly distributed
 distance from the direct ray up to 100 meters. Assume that all reflected rays
 undergo a $-\pi$ phase shift. Assume that the $\prod{\vec{A_r}}$ is a normal
@@ -118,9 +119,16 @@ could be as shown in Figures \ref{fig:oneray}, \ref{fig:tworay}, \ref{fig:hray}.
 ![10 meter direct path, 100 rays\label{fig:hray}](response_r100_d10.0.pdf)
 
 
+# Further work
 
+The $\prod{\vec{A_r}}$ and $\sum{\vec{\phi_r}}$ should be updated more
+accurately reflect real world coefficients for example [Reflection and
+Transmission Properties of Common Construction Materials at 2.4 GHz Frequency](https://www.sciencedirect.com/science/article/pii/S1876610217321689?ref=pdf_download&fr=RR-2&rr=749b3de02dcafac8)
 
+The distance of rays should somehow be computed from a real scenario, like the
+floorplan of a home, and should include a model of the number of reflections or
+transmissions
 
-
+There might already be ray based models, so literature should be checked.
 
 
