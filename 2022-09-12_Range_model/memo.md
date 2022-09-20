@@ -54,7 +54,7 @@ good to prototype in high level language.
 At the transmitter the signal can be described as
 
 $$
-y_{tx,f} = A_{tx}e^{j f t + \phi_{\Delta}}
+y_{tx,f} = A_{tx}e^{j 2 \pi f t + \phi_{\Delta}}
 $$
 
 where $\phi_{\Delta}$ is the initial phase offset of the transmitter, $f$ is the
@@ -107,16 +107,34 @@ The code for the channel model can be found at [model.py](https://github.com/wul
 Assume a direct ray. Assume that other rays, $\vec{R}$ have uniformly distributed
 distance from the direct ray up to 100 meters. Assume that all reflected rays
 undergo a $-\pi$ phase shift. Assume that the $\prod{\vec{A_r}}$ is a normal
-distribution with a mean of 0.2 and a standard deviation of 0.05.
+distribution with a mean of 0.15 and a standard deviation of 0.05.
 
 Assuming a 80 MHz bandwidth in the 2.4 GHz ISM band, the transfer function 
 could be as shown in Figures \ref{fig:oneray}, \ref{fig:tworay}, \ref{fig:hray}.
 
-![10 meter direct path, One ray \label{fig:oneray}](response_r1_d10.0.pdf)
+![10 meter direct path, One ray, 100 runs \label{fig:oneray}](response_r1_d10.0.pdf)
 
-![10 meter direct path, Two rays\label{fig:tworay}](response_r2_d10.0.pdf)
+![10 meter direct path, Two rays, 100 runs\label{fig:tworay}](response_r2_d10.0.pdf)
 
-![10 meter direct path, 100 rays\label{fig:hray}](response_r100_d10.0.pdf)
+![10 meter direct path, 100 rays, 100 runs\label{fig:hray}](response_r100_d10.0.pdf)
+
+# Distance model
+
+It is possible to run the model over multiple distances, and as such, see how
+the RMS delay spread is as a function of distance. In Figures
+\ref{fig:dist1},\ref{fig:dist3},\ref{fig:dist3}
+simulation of 1 meter to 20 meters is shown for 10,100,1000 rays and 100 channel realization per
+distance.
+
+The number of rays will natuarlly impact the RMS delay spread. How many rays are
+important in a real room would depend on the reflection coefficient matrix.
+
+![Multiple distances 10 rays \label{fig:dist1}](distance_dstart1_dstop20_r10.pdf)
+
+![Multiple distances 100 rays \label{fig:dist2}](distance_dstart1_dstop20_r100.pdf)
+
+![Multiple distances 1000 rays\label{fig:dist3}](distance_dstart1_dstop20_r1000.pdf)
+
 
 
 # Further work

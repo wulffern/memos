@@ -3,81 +3,153 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import click
+import channel as chan
+
+#Globals
+GHz = 1e9
+ns = 1e-9
 
 
-c = 3.0e8
+@click.group()
+def cli():
+    pass
 
-def calcImpulse2(H2):
-    N = 2048
-    yfft = np.fft.ifft(H2,N)
-    yf = yfft[1:((int)(len(yfft)/2))]
 
-    #- Normalize impulse
-    I2 = yf/yf.max()
-    I2_x = np.arange(0,N/2-1)/N/2/1e6
-    return (I2_x,I2)
+@cli.command()
+@click.option("--rays",default=100,help="Number of rays to use")
+@click.option("--count",default=100,help="Number channel realizations")
+@click.option("--distance",default=10,help="Distance of line of sight in channel")
+@click.option("--model",default="model_A1",help="What model to run in channel")
+@click.option("--show/--no-show",default=True)
+def response(rays,count,distance,model,show):
 
-def modelH2(f,rays,distance):
-    N = len(f)
-    M = rays
-    A_k = np.concatenate((np.array([1]),0.2+ 0.05*np.random.randn(M-1)))
-    d_k = np.concatenate((np.array([distance]),np.random.uniform(low=distance,high=100,size=(M-1))))
-    r_k = np.concatenate((np.array([0.0]),np.ones(M-1)))
+    df = chan.Distance(distance,count,rays,model)
+    df.create()
+    df.calc()
+    plotChannels(df.f,df.channels,0,"media/response_r%d_d%.1f.pdf" %(rays,distance),show)
 
-    H = np.zeros(N) + 1j*np.zeros(N)
-    for i in range(0,N):
-        f_i = f[i]
-        amp = c/(4*np.pi*f_i)*np.divide(A_k,np.multiply(d_k,2))
-        phase = -2*np.pi*f_i*d_k/c -r_k*np.pi #+ (1-np.random.randn(M))*np.pi/10
-        cplx = np.multiply(amp,np.exp(1j*phase))
-        H[i] = np.sum(cplx)
+@cli.command()
+@click.option("--dstart",default=1.0,help="Distance start")
+@click.option("--dstop",default=20.0,help="Distance stop")
+@click.option("--steps",default=20,help="Number of steps between start and stop")
+@click.option("--rays",default=100,help="Number of rays to use")
+@click.option("--count",default=100,help="Number channel realizations")
+@click.option("--model",default="model_A1",help="What model to run in channel")
+@click.option("--show/--no-show",default=True)
+def distance(dstart,dstop,steps,count,rays,model,show):
 
-    return np.multiply(H,H)
+    dists = list()
+    ds = np.linspace(dstart,dstop,steps)
+    for d in ds:
+        dc = chan.Distance(d,count,rays,model)
+        dc.create()
+        dc.calc()
+        dists.append(dc)
+
+
+    plotDistances(ds,dists,"media/distance_dstart%d_dstop%d_r%d.pdf" %(dstart,dstop,rays),show)
+    pass
+
+def plotDistances(ds,dists,name,show=True):
+
+    fig, ax = plt.subplots(5,1,figsize=(10,10), gridspec_kw={'height_ratios': [0.3, 2,2,2,2]})
+    cmap_name = "viridis_r"
+    cmap = plt.get_cmap(cmap_name)
+    colors = cmap.colors
+
+    gradient = np.linspace(0, 1, 256)
+    gradient = np.vstack((gradient, gradient))
+
+    N = len(colors)
+    maxdist = 50
+    idmult = N/maxdist
+    c= 299792458
+    ns =1e9
+
+    ax[0].imshow(gradient, aspect='auto', cmap=plt.get_cmap(cmap_name),extent=[0,maxdist,1,0])
+    ax[0].get_yaxis().set_visible(False)
+    ax[0].set_xlabel("Distance [m]")
+    dist_avg = 0
+    for d in dists:
+
+        dist = d.distance
+        dist_avg += dist
+        delay = dist/(c)*ns
+
+        for ch in d.channels:
+            xx = ch.impulse_x*ns - delay
+            y = np.abs(ch.impulse**2)
+            y = y/np.max(y)
+
+            ax[1].plot(xx,y,color=colors[int(idmult*dist)],marker="None",linestyle="solid",alpha=0.3)
+            ax[2].plot(ch.link_loss,ch.delaySpread*ns,marker="o",color="black")
+            ax[3].plot(dist,ch.delaySpread*ns,marker="o",color="black")
+            ax[4].semilogx(dist,ch.link_loss,marker="o",color="black")
+    dist_avg = dist_avg/len(dists)
+    ax[0].set_title("Average distance = %.2f m, %d distances" % (dist_avg,len(dists)))
+    ax[1].set_ylabel("Power")
+    ax[1].grid(True)
+    ax[2].grid(True)
+    ax[3].grid(True)
+    ax[4].grid(True)
+    ax[1].set_xlabel("Impulse response - delay of distance [ns]")
+    ax[2].set_ylabel("RMS delay spread [ns]")
+    ax[3].set_ylabel("RMS delay spread [ns]")
+    ax[4].set_ylabel("Link loss [dB]")
+    ax[2].set_xlabel("Link loss [dB]")
+    ax[3].set_xlabel("Estimated distance [m]")
+    ax[4].set_xlabel("Estimated distance [m]")
+    plt.tight_layout()
+    plt.savefig(name)
+    if(show):
+        plt.show()
+
+
+def plotChannels(f,channels,impulseXOffsetNs,name,show=True):
+
+    fig, ax = plt.subplots(4,1,figsize=(10,10), gridspec_kw={'height_ratios': [2,2,2,2]})
+
+    #Magnitude
+    #plt.subplot(4,1,1)
+    for ch in channels:
+        ax[0].plot(f/GHz,ch.magnitude)
+    ax[0].set_ylabel("Magnitude H(f) [dB]")
+    ax[0].set_xlabel("Frequency [GHz]")
+
+    #Phase
+    #plt.subplot(4,1,2)
+    for ch in channels:
+        ax[1].plot(f/GHz,ch.phase)
+    ax[1].set_ylabel("Phase H(f) [rad]")
+    ax[1].set_xlabel("Frequency [GHz]")
+
+    #Impulse
+    #plt.subplot(4,1,3)
+    for ch in channels:
+        ax[2].plot(ch.impulse_x/ns - impulseXOffsetNs ,np.abs(ch.impulse))
+    ax[2].set_ylabel("Impulse response ")
+    ax[2].set_xlabel("Time [ns]")
+
+    #RMS delay spread
+    #plt.subplot(4,1,4)
+    for ch in channels:
+        ax[3].plot(ch.magnitude.mean(),ch.delaySpread/ns,marker="o",color="black")
+
+    ax[3].set_ylabel("RMS delay spread [ns]")
+    ax[3].set_xlabel("Mean RSSI [dB]")
+
+    for a in ax:
+        a.grid(True)
+
+    plt.tight_layout()
+    plt.savefig(name)
+    if(show):
+        plt.show()
+
+
+
+
 
 if( __name__ == '__main__' ):
-
-    if (len(sys.argv) < 3):
-        print(f"Usage: python3 {sys.argv[0]} <rays> <direct distance>")
-        exit()
-
-    #- Number of runs
-    K = 100
-    rays = int(sys.argv[1])
-    GHz = 1e9
-    ns = 1e-9
-    distance = float(sys.argv[2])
-
-    phase = list()
-    magnitude = list()
-    H2s = list()
-    error = np.zeros(K)
-    f = 2.4e9 + np.arange(1,81)*1.0e6
-    for i in range(0,K):
-        H2= modelH2(f,rays,distance)
-        H2s.append(H2)
-        magnitude.append(10*np.log10(np.abs(H2)))
-        phase.append(np.unwrap(np.angle(H2)))
-        e_distance = (phase[-1][-1]-phase[-1][0])/(2*np.pi*79e6/c*2)
-        error[i] = distance - e_distance
-
-    plt.subplot(3,1,1)
-    for m in magnitude:
-        plt.plot(f/GHz,m)
-    plt.ylabel("Magnitude H(f) [dB]")
-    plt.xlabel("Frequency [GHz]")
-    plt.subplot(3,1,2)
-    for p in phase:
-        plt.plot(f/GHz,p)
-    plt.ylabel("Phase H(f) [rad]")
-    plt.xlabel("Frequency [GHz]")
-    plt.subplot(3,1,3)
-    for H2 in H2s:
-        (I2_x,I2) = calcImpulse2(H2)
-        plt.plot(I2_x/ns,np.abs(I2))
-
-    plt.ylabel("Impulse response ")
-    plt.xlabel("Time [ns]")
-    plt.tight_layout()
-    plt.savefig("media/response_r%d_d%.1f.pdf" %(rays,distance))
-    if(len(sys.argv) > 3):
-        plt.show()
+    cli()
