@@ -204,6 +204,12 @@ $k$ is Boltzmann's constant, and $T$ is the temperature in Kelvin.
 
 Fun fact, the Fermi level difference between two points is what you measure with a voltmeter.
 
+If the
+$E -E_F > kT$, then we can start to ignore the $+1$ and the probability reduces
+to
+
+$$ f(E) = \frac{1}{e^{(E-E_F)/kT}} = e^{(E_F - E)/kT}$$
+
 A few observiation on the Fermi-Dirac distribution. If the Energy of a particle
 is at the Fermi level, then $f(E) = \frac{1}{2}$, or a 50 % probability. 
 
@@ -226,12 +232,6 @@ conduction band edge $E_C$ and the valence band edge $E_V$. The bandgap is defin
 as the $E_C - E_V = E_g$, and we can use that to get 
 $E_F - E_C = E_C - E_g/2 - E_C= -E_g/2$. This is why the bandgap of silicon
 keeps showing up in our diode equations.
-
-If the
-$E -E_F > kT$, then we can start to ignore the $+1$ and the probability reduces
-to
-
-$$ f(E) = \frac{1}{e^{(E-E_F)/kT}} = e^{(E_F - E)/kT}$$
 
 The number of electrons per delta energy will then be given by  $N_e dE = N(E)f(E)dE$, which can be integrated to get 
 
