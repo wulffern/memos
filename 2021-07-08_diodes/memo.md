@@ -1,8 +1,8 @@
 ---
 abstract: |
-  I explain how diodes work. 
+  I try to explain how diodes work. 
 author:
-- Carsten Wulff, *2022-05-09*, v0.1.0
+- Carsten Wulff, *2022-11-20*, v0.1.1
 title: Diodes
 documentclass: IEEEtran
 papersize: a4
@@ -14,7 +14,7 @@ For the source of this paper, see the [markdown](https://github.com/wulffern/mem
 
 # Why
 
-Diodes are a magical [^1] semiconductor device that  conduct
+Diodes are a magical [^1] semiconductor device that conduct
 current in one direction. It's one of the fundamental electronics components,
 and it's a good idea to understand how they work.
 
@@ -34,7 +34,7 @@ This paper attempts to explain in the simplest possible terms how a diode works 
 
 Integrated circuits use single crystalline silicon. The silicon crystal is grown
 with the [Czochralski method](https://en.wikipedia.org/wiki/Czochralski_method)
-which forms a ingot that is cut into wafers. The wafer is an extremely regular
+which forms a ingot that is cut into wafers. The wafer is a regular
 silicon crystal, although, it is not perfect. 
 
 A [silicon]() crystal unit cell, as seen in Fig. \ref{fig:silicon}
@@ -44,6 +44,15 @@ nm.
 
 ![Silicon crystal unit cell\label{fig:silicon}](503px-Silicon-unit-cell-3D-balls.png)
 
+As you hopefully know, the energy levels of an electron around a positive
+nucleus are quantized, and we call them orbitals (or shells). For an atom far
+away from any others, these orbitals, and energy levels are distinct. As we
+bring atoms closer together, the orbitals start to interact, and in a crystal,
+the distinct orbital energies split into bands of allowed energy status. No two
+electrons, or any Fermion (spin of $1/2$), can occupy the same quantum state.
+We call the outermost "shared" orbitial, or band, in a crystal the valence band.
+Hence co-valent bonds. 
+
 If we assume the crystal is perfect, then at 0 Kelvin all electrons will be part of
 covalent bonds. Each silicon atom share 4
 electrons with its neighbors. All the neighbors also share electrons, and
@@ -51,84 +60,29 @@ nowhere is there an vacant state, or a hole, in the valence band. If such a
 crystal were to exist, it would not conduct any current, as the charges cannot
 move. 
 
+In a atom, or a crystal, there are also higher energy states where the carriers
+are "free" to move. We call these energy levels, or bands of energy levels,
+conduction bands. In singular form "conduction band", refers to the lowest
+available energy level where the electrons are free to move. 
+
 Due to imperfectness of the silicon crystal, and non-zero temperature, there
 will be some electrons that achieve sufficient energy to jump to the conduction
-band. In the conduction band electrons are free to move. The electrons in the conduction band leave vacant states, or holes, in the
+band. The electrons in the conduction band leave vacant states, or holes, in the
 valence band. 
 
 Electrons can move both in the conduction band, as free electrons, and in the
-valence band, by jumping from hole to hole.
-
-The movement of electrons in solids seem to obey the mathematics of quantum
-mechanics. I don't know why electrons move as they do, but I do know that
-physicists tell me that no evidence has been found that contradicts the
-mathematics of quantum mechanics. 
-
-If you wanted to try an compute movement
-of electrons, then you must deal with the complex probability amplitudes, or the
-wave function, given by 
-
-$$ \psi(x,t) = Ae^{j(kx - \omega t)}$$
-
-where $k$ is the wave number, and $\omega$ is the angular frequency. To compute
-the time evolution of the wave function you could use the Schrodinger equation,
-or 
-
-$$ \frac{1}{2 m} \frac{\hbar}{j^2} \frac{\partial^2}{\partial^2 x}\psi(x,t) +
-V(x)\psi(x,t) = -\frac{\hbar}{j}\frac{\partial}{\partial t} \psi(x,t)$$
-
-where $m$ is the mass, $V$ is the voltage, $\hbar = h/2\pi$.
-
-Now I could say "one can easily see that", or "it could be shown that", but in
-all honesty, I don't understand how electrons move. 
-
-Assume an electron
-with a certain momentum passes close enough to a Boron atom with a vacant state
-such that the wave functions of the vacant state and the electron interact. An
-electron can scatter off the energy boundary, or
-get stuck in the hole. We cannot say for certain what will happen for a
-particular electron, but in general we can provide the probability of events.
-
-
-Drawing an analogy to the real world, imagine a golf ball rolling towards the edge of a large empty
-pool.  The behavior of the electron would be like the golf ball sometimes would turn
-around at the edge of the pool and come back, and other times, it would fall in.
-That's just weird. But it is how quantum mechanics tells us the small world
-works. 
-
-Imagine now a 1 $\mu m^3$ piece of silicon. That has $(1 \mu)^3/(0.543 \text{n})^3 =
-6.2 \text{G}$ unit cells. Not all of them are perfect. Some might be missing an atom,
-or have a impurity atom, or maybe a missing unit cell. How do we compute the movement
-of electrons with wave function in such a system? I'm not sure we can, as in,
-I'm not sure anyone in the world actually knows how to do that. We have to make
-assumptions, we have to make simplifications, we have to ignore the fact that
-the world is not perfect. 
-
-Instead of trying to envision electrons as particles moving around in the
-crystal, try to think of electrons, and holes, as a gas. We don't know exactly
-how every atom of the gas will behave, however, we can say in general that if
-there is a density difference, then there will be a flow of gas atoms that
-follow [Fick's law of
-diffusion](https://en.wikipedia.org/wiki/Fick%27s_laws_of_diffusion). Same in
-silicon. Any charge concentration difference will give rise to a [diffusion
-current](https://en.wikipedia.org/wiki/Diffusion_current) given by 
-
-$$ I_{\text{diffusion}} = - qD_n \frac{\partial \rho}{\partial x}$$
-
-where $q$ is the charge, $\rho$ is the charge density, and  $D$ is a diffusion
-coefficient that through the [Einstein
-relation](https://en.wikipedia.org/wiki/Diffusion_current) can be expressed as
-$D = \mu k T$, where mobility $\mu = v_d/F$ is the ratio of drift velocity $v_d$
-to an applied force $F$.  
+valence band, as a positive particle, or hole. 
 
 
 # Intrinsic carrier concentration
 
-
 The intrinsic carrier concentration of silicon, or how many free electrons and
 holes at a given temperature, is given by 
 
-$$ n_i = \sqrt{N_c N_v} e^{-\frac{E_g}{2 k T}} $$
+\begin{equation}
+ n_i = \sqrt{N_c N_v} e^{-\frac{E_g}{2 k T}}
+\label{eq:ni}
+\end{equation}
 
 where $E_g$ is the bandgap energy of silicon (approx 1.12 eV), $k$ is Boltzmann's constant, $T$ is
 the temperature in Kelvin, $N_c$ is the density of states in conduction band,
@@ -139,9 +93,7 @@ The density of states are
 $$ N_c = 2 \left[\frac{2 \pi  k T m_n^*}{h^2}\right]^{3/2} \text{  } N_v = 2 \left[\frac{2 \pi  k T m_p^*}{h^2}\right]^{3/2} $$
 
 where $h$ is Planck's constant, $m_n^*$ is the effective mass of electrons, and
-$m_p^*$ is the effective mass of holes. The effective mass of electrons and holes in silicon depend on direction of
-movement, strain of silicon,  and I'm not entirely sure what is the correct number to use when
-computing density of states. 
+$m_p^*$ is the effective mass of holes. 
 
 In [@cjm11] they claim the intrinsic carrier concentration is a constant, although
 they do mention $n_i$ doubles every 11 degrees Kelvin. In BSIM 4.8 [@bsim] $n_i$ is
@@ -165,6 +117,176 @@ per $um^{3}$ it's
 $n_{i} = \frac{1 \times 10^{16}}{(1 \times 10^{6})^{3}} \text{ carriers}/\mu \text{m}^{3}< 1$,
 so there are really not that many free carriers in intrinsic silicon.
 
+But where does Equation \ref{eq:ni} come from? I find it  unsatisfying
+if I don't understand where things come from. I like to understand why there is
+an exponential, or effective mass, or Planck's constant. If you're like me, then
+read the next section. If you don't care, and just want to memorize the
+equations, or indeed the number of intrinsic carrier concentration number at
+room temperature, then skip the next section.
+
+# It's all quantum
+
+There are two components needed to determine how many electrons are in the
+conduction band. The density of available states, and the probability of an
+electron to be in that quantum state. 
+
+For the density of states we must turn to quantum mechanics. The probability
+amplitude of a particle can be described as  
+
+$$\psi = Ae^{j(k\vec{r} - \omega t)}$$ 
+
+where $k$ is the wave number, and $\omega$ is the angular frequency, and
+$\vec{r}$ is a spatial vector. 
+
+In one dimension we could write $\psi(x,t) = Ae^{j(kx - \omega t)}$ 
+
+In classical physics we described the Energy of the system as
+$$\frac{1}{2 m} p^2 + V = E$$ 
+where $p = m v$, $m$ is the mass, $v$ is the velocity and $V$ is the potential.
+
+In the quantum realm we must use the Schrodinger equation to compute the time
+evolution of the Energy, in one dimension
+
+
+$$\frac{1}{2 m} \frac{\hbar}{j^2} \frac{\partial^2}{\partial^2 x}\psi(x,t) +
+V(x)\psi(x,t) = -\frac{\hbar}{j}\frac{\partial}{\partial t} \psi(x,t) $$
+
+where $m$ is the mass, $V$ is the potential, $\hbar = h/2\pi$.
+
+To compute "how many Energy states are there per unit volume in the
+conduction band", or the "density of states", we start with the three
+dimensional Schrodinger equation for a free electron
+
+$$-\frac{\hbar^2}{2m}\Delta^2\psi = E\psi$$
+
+I'm not going to repeat the computation here, but rather paraphrase the steps.
+You can find the full derivation in [Solid State Electronic
+Devices](https://www.amazon.com/Solid-State-Electronic-Devices-7th/dp/0133356035).
+I'm not sure why the complex parts of the Schrodinger equation dissapeared, but
+I would assume it's some form of simplification of the real world. 
+
+The derivation starts by computing the density of states in the k-space
+ $N(dk) = \frac{2}{(2 \pi)^p} dk$
+Where $p$ is the number of dimensions (in our case 3).
+
+Then uses the band structure $E(k)$ to convert to the density of states as a
+function of energy $N(E)$. The simplest band structure, and a approxmiation of
+the lowest conduction band is
+$$E(k) = \frac{\hbar^2 k^2}{2 m^*}$$
+where $m^*$ is the effective mass of the particle. It is within this effective
+mass that we "hide" the complexity of the actual three-dimensional crystal
+structure of silicon. 
+
+The effective mass is defined as 
+
+$$m^* = \frac{\hbar^2}{\frac{d^2 E}{dk^2}}$$
+
+as such, the effective mass depends on the localized band structure of the
+silicon unit cell, and depends on direction of movement, strain of the silicon
+lattice, and probably other things.
+
+In 3D, once we use the above equations, one can compute that the density of
+states per unit energy is 
+$$N(E)dE = \frac{2}{\pi^2}\frac{m^*}{\hbar^2}^{3/2} E^{1/2}dE$$
+
+In order to find the number of electrons, we need the probability of an electron
+being in a quantum state, which is given by the [Fermi-Dirac
+distribution](https://en.wikipedia.org/wiki/Fermi–Dirac_statistics)
+
+\begin{equation}
+ f(E) = \frac{1}{e^{(E - E_F)/kT}  + 1} 
+\label{eq:fm}
+\end{equation}
+
+where $E$ is the energy of the electron, $E_F$ is the [Fermi
+energy](https://en.wikipedia.org/wiki/Fermi_energy),
+$k$ is Boltzmann's constant, and $T$ is the temperature in Kelvin. 
+
+A few observiation on the Fermi-Dirac distribution. If the Energy of a particle
+is at the Fermi level, then $f(E) = \frac{1}{2}$, or a 50 % probability. 
+
+In a metal, the Fermi level lies within a band, as the conduction
+band and valence band overlap. As a result, there are a bunch of free electrons
+that can move around. Metal does not have the same type of co-valent bonds as
+silicon, but electrons are shared between a large part of the metal structure. I would also assume that
+the location of the Fermi level within the band structure explains the difference in
+conductivity of metals, as it would determined how many electrons are free to
+move. 
+
+In an insulator, the Fermi level lies in the bandgap between valence band and
+conduction band, and usually, the bandgap is large, so there is a
+low probability of finding electrons in the conduction band. 
+
+In a semiconductor we also have a bandgap, but much lower than an insulator.
+If we have thermal equilibrium, no external forces, and
+we have an un-doped (intrinsic) silicon semiconductor, then the fermi level $E_F$ lies half way between the
+conduction band edge $E_C$ and the valence band edge $E_V$. The bandgap is defined
+as the $E_C - E_V = E_g$, and we can use that to get 
+$E_F - E_C = E_C - E_g/2 - E_C= -E_g/2$. This is why the bandgap of silicon
+keeps showing up in our diode equations.
+
+If the
+$E -E_F > kT$, then we can start to ignore the $+1$ and the probability reduces
+to
+
+$$ f(E) = \frac{1}{e^{(E-E_F)/kT}} = e^{(E_F - E)/kT}$$
+
+The number of electrons per delta energy will then be given by  $N_e dE = N(E)f(E)dE$, which can be integrated to get 
+
+\begin{equation}
+\label{eq:nc0} n_e = 2\left( \frac{2 \pi m^* k T}{h^2}\right)^{3/2} e^{(E_F - E_C)/kT}
+\end{equation}
+
+For intrinsic silicon at thermal equlibrium, we could write
+
+\begin{equation}
+\label{eq:nc0} n_0 = 2\left( \frac{2 \pi m^* k T}{h^2}\right)^{3/2} e^{-E_g/(2kT)}
+\end{equation}
+
+As we can see, Equation \ref{eq:nc0} has the same coefficients and form as the
+computation in Equation \ref{eq:ni}. The
+difference is that we also have to account for holes. At thermal equilibrium
+and intrinsic silicon $n_i^2 = n_0 p_0$.
+
+I've come to the realization that to imagine electrons as balls moving around in
+the silicon crystal is a bad mental image. 
+
+For example, for a metal-oxide-semiconductor field effect transistor (MOSFET) it is not
+the case that the electrons that form the inversion layer under strong inversion
+come from somehwere else. They are already at the silicon surface, but they are
+bound in co-valent bonds. 
+
+What happens is that the applied voltage at the gate shifts the energy bands
+close to the surface (or bends the bands in relation to the Fermi level), and the density of carriers in the
+conduction band in that
+location changes, according to the type of derivations above. 
+
+To make matters more complicated, an inversion layer of a MOSFET is not in three
+dimensions, but rather one must compute for two dimensions, as the density of
+states is confined to the silicon surface. 
+
+Once the electrons are in the conduction band, then they follow the same
+equations as diffusion of a gas,  [Fick's law of
+diffusion](https://en.wikipedia.org/wiki/Fick%27s_laws_of_diffusion). 
+Any charge concentration difference will give rise to a [diffusion
+current](https://en.wikipedia.org/wiki/Diffusion_current) given by 
+
+\begin{equation}
+\label{eq:diff}
+J_{\text{diffusion}} = - qD_n \frac{\partial \rho}{\partial x}
+\end{equation}
+
+where $J$ is the current density, $q$ is the charge, $\rho$ is the charge density, and  $D$ is a diffusion
+coefficient that through the [Einstein
+relation](https://en.wikipedia.org/wiki/Diffusion_current) can be expressed as
+$D = \mu k T$, where mobility $\mu = v_d/F$ is the ratio of drift velocity $v_d$
+to an applied force $F$.  
+
+Careful with the mobility $\mu$ though, since the inversion layer of a MOSFET is
+a [two dimensional electron
+gas](https://en.wikipedia.org/wiki/Two-dimensional_electron_gas), so will have a
+different $\mu$ than in three dimensional bulk silicon.
+
 # Doping
 
 We can change the property of silicon by introducing other elements, something
@@ -181,7 +303,14 @@ silicon.
 
 If we have an
 element with more electrons we call it a donor, and the donor
-concentration $N_{D}$. Since the crystal now has an abundance of
+concentration $N_{D}$. 
+
+The main effect of doping is that it changes the location
+of the Fermi level at thermal equilibirum. For donors, the Fermi level will
+shift closer to the conduction band, and increase the probabilty of free
+electrons, as determined by Equation \ref{eq:fm}.
+
+Since the crystal now has an abundance of
 free electrons, which have negative charge, we call it n-type.
 
 If the element has less electrons we call
@@ -237,7 +366,7 @@ state $j$ is given by
 $$ n_j = \frac{1}{e^{(E_j - \mu)/kT}  + 1} $$
 
 where $E_j$ is the energy of the single-particle state, $\mu$ is the chemical
-potential. 
+potential (or the Fermi Level). 
 
 Assuming the exponential is much larger than 1, and taking the ratio
 number of free electrons on the n-side, and p-side, we get 
@@ -389,3 +518,4 @@ with the small exception of the non-linear component of $V_D$.
 [^1]: It doesn't stop being magic just because you know how it works. Terry Pratchett, The Wee Free Men
 [^2]: Simplify as much as possible, but no more. Einstein
 [^3]: From the Einstein relation $D = \mu k T$ it does appear that the diffusion coefficient increases with temperature, however, the mobility decreases with temperature. I'm unsure of whether the mobility decreases with the same rate though.
+[^4]: 

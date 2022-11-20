@@ -2,7 +2,9 @@
 FILE= 2021-07-08_diodes
 
 one:
-	cd build; pandoc --csl=ieee-with-url.csl --citeproc --resource-path='../media' --bibliography=memo.bib  -s ../${FILE}/memo.md -o ${FILE}.pdf --template memo.latex
+	cd build; pandoc --csl=ieee-with-url.csl --citeproc --resource-path='../media' --bibliography=memo.bib  -s ../${FILE}/memo.md -o ${FILE}.latex --template memo.latex
+	cd build; pdflatex ${FILE}.latex
+	cd build; pdflatex ${FILE}.latex
 	cp build/${FILE}.pdf delivery/
 
 
