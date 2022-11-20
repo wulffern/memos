@@ -48,10 +48,10 @@ As you hopefully know, the energy levels of an electron around a positive
 nucleus are quantized, and we call them orbitals (or shells). For an atom far
 away from any others, these orbitals, and energy levels are distinct. As we
 bring atoms closer together, the orbitals start to interact, and in a crystal,
-the distinct orbital energies split into bands of allowed energy status. No two
+the distinct orbital energies split into bands of allowed energy states. No two
 electrons, or any Fermion (spin of $1/2$), can occupy the same quantum state.
 We call the outermost "shared" orbitial, or band, in a crystal the valence band.
-Hence co-valent bonds. 
+Hence covalent bonds. 
 
 If we assume the crystal is perfect, then at 0 Kelvin all electrons will be part of
 covalent bonds. Each silicon atom share 4
@@ -199,15 +199,17 @@ distribution](https://en.wikipedia.org/wiki/Fermi–Dirac_statistics)
 \end{equation}
 
 where $E$ is the energy of the electron, $E_F$ is the [Fermi
-energy](https://en.wikipedia.org/wiki/Fermi_energy),
+energy](https://en.wikipedia.org/wiki/Fermi_level) or checmical potential,
 $k$ is Boltzmann's constant, and $T$ is the temperature in Kelvin. 
+
+Fun fact, the Fermi level difference between two points is what you measure with a voltmeter.
 
 A few observiation on the Fermi-Dirac distribution. If the Energy of a particle
 is at the Fermi level, then $f(E) = \frac{1}{2}$, or a 50 % probability. 
 
 In a metal, the Fermi level lies within a band, as the conduction
 band and valence band overlap. As a result, there are a bunch of free electrons
-that can move around. Metal does not have the same type of co-valent bonds as
+that can move around. Metal does not have the same type of covalent bonds as
 silicon, but electrons are shared between a large part of the metal structure. I would also assume that
 the location of the Fermi level within the band structure explains the difference in
 conductivity of metals, as it would determined how many electrons are free to
@@ -254,7 +256,7 @@ the silicon crystal is a bad mental image.
 For example, for a metal-oxide-semiconductor field effect transistor (MOSFET) it is not
 the case that the electrons that form the inversion layer under strong inversion
 come from somehwere else. They are already at the silicon surface, but they are
-bound in co-valent bonds. 
+bound in covalent bonds. 
 
 What happens is that the applied voltage at the gate shifts the energy bands
 close to the surface (or bends the bands in relation to the Fermi level), and the density of carriers in the
