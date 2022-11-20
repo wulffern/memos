@@ -199,7 +199,7 @@ distribution](https://en.wikipedia.org/wiki/Fermi–Dirac_statistics)
 \end{equation}
 
 where $E$ is the energy of the electron, $E_F$ is the [Fermi
-energy](https://en.wikipedia.org/wiki/Fermi_level) or checmical potential,
+level](https://en.wikipedia.org/wiki/Fermi_level) or checmical potential,
 $k$ is Boltzmann's constant, and $T$ is the temperature in Kelvin. 
 
 Fun fact, the Fermi level difference between two points is what you measure with a voltmeter.
