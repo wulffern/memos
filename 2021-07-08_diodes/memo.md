@@ -69,7 +69,7 @@ If we assume the crystal is perfect, then at 0 Kelvin all electrons will be part
 covalent bonds. Each silicon atom share 4
 electrons with its neighbors. I think what we really mean when we say "share 4
 electrons" is that the wave-functions of the outer orbitals interact, and
-we can no longer think of the orbitals as beloning to either of the silicon
+we can no longer think of the orbitals as belonging to either of the silicon
 nuclei. All the neighbors atoms "share" electrons, and
 nowhere is there an vacant state, or a hole, in the valence band. If such a
 crystal were to exist, it would not conduct any current, as the charges cannot
@@ -223,7 +223,7 @@ Devices](https://www.amazon.com/Solid-State-Electronic-Devices-7th/dp/0133356035
 
 
 The derivation starts by computing the density of states in the k-space, or
- phase space, 
+ momentum space, 
  
 $$N(dk) = \frac{2}{(2 \pi)^p} dk$$
  
