@@ -155,12 +155,12 @@ electron to be in that quantum state.
 For the density of states we must turn to quantum mechanics. The probability
 amplitude of a particle can be described as  
 
-$$\psi = Ae^{j(k \textbf{r} - \omega t)}$$ 
+$$\psi = Ae^{i(k \textbf{r} - \omega t)}$$ 
 
 where $k$ is the wave number, and $\omega$ is the angular frequency, and
 $\textbf{r}$ is a spatial vector. 
 
-In one dimension we could write $\psi(x,t) = Ae^{j(kx - \omega t)}$ 
+In one dimension we could write $\psi(x,t) = Ae^{i(kx - \omega t)}$ 
 
 In classical physics we described the Energy of the system as
 $$\frac{1}{2 m} p^2 + V = E$$ 
@@ -170,8 +170,8 @@ In the quantum realm we must use the Schrodinger equation to compute the time
 evolution of the Energy, in one space dimension
 
 
-$$\frac{1}{2 m} \frac{\hbar}{j^2} \frac{\partial^2}{\partial^2 x}\psi(x,t) +
-V(x)\psi(x,t) = -\frac{\hbar}{j}\frac{\partial}{\partial t} \psi(x,t) $$
+$$-\frac{\hbar^2}{2 m} \frac{\partial^2}{\partial^2 x}\psi(x,t) +
+V(x)\psi(x,t) = i\hbar\frac{\partial}{\partial t} \psi(x,t) $$
 
 where $m$ is the mass, $V$ is the potential, $\hbar = h/2\pi$.
 
@@ -215,7 +215,7 @@ To compute "how many Energy states are there per unit volume in the
 conduction band", or the "density of states", we start with the three
 dimensional Schrodinger equation for a free electron
 
-$$-\frac{\hbar^2}{2m}\Delta^2\psi = E\psi$$
+$$-\frac{\hbar^2}{2m}\nabla^2\psi = E\psi$$
 
 I'm not going to repeat the computation here, but rather paraphrase the steps.
 You can find the full derivation in [Solid State Electronic
@@ -549,8 +549,8 @@ We also need to multiply by the area of the diode to get current from current
 density. The full equation thus becomes
 
 $$
-I = q A ni^2 \left( \frac{1}{N_A}\frac{D_n}{L_n} + \frac{1}{N_D}\frac{D_p}{L_p}
-\right)\left[ e^{V/kT} - 1 \right]
+I = q A n_i^2 \left( \frac{1}{N_A}\frac{D_n}{L_n} + \frac{1}{N_D}\frac{D_p}{L_p}
+\right)\left[ e^{qV/kT} - 1 \right]
 $$
 
 where $A$ is the area of the diode, $D_n$,$D_p$ is the diffusion coefficient of electrons
