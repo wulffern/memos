@@ -257,11 +257,9 @@ being in a quantum state, which is given by the [Fermi-Dirac
 distribution](https://en.wikipedia.org/wiki/Fermi–Dirac_statistics)
 
 $$
-\begin{equation}
  f(E) = \frac{1}{e^{(E - E_F)/kT}  + 1}
 \tag{2}
 \label{eq:fm}
-\end{equation}
 $$
 
 where $E$ is the energy of the electron, $E_F$ is the [Fermi
@@ -303,19 +301,19 @@ keeps showing up in our diode equations.
 
 The number of electrons per delta energy will then be given by  $N_e dE = N(E)f(E)dE$, which can be integrated to get 
 
-
-\begin{equation}
+$$
 n_e = 2\left( \frac{2 \pi m^\ast k T}{h^2}\right)^{3/2} e^{(E_F - E_C)/kT}
-\end{equation}
+$$
 
 
 For intrinsic silicon at thermal equlibrium, we could write
 
-\begin{equation}
+$$
 n_0 = 2\left( \frac{2 \pi m^\ast k T}{h^2}\right)^{3/2} e^{-E_g/(2kT)}
 \tag{3}
 \label{eq:nc0}
-\end{equation}
+$$
+
 
 As we can see, Equation \eqref{eq:nc0} has the same coefficients and form as the
 computation in Equation \eqref{eq:ni}. The
@@ -709,8 +707,7 @@ agree with your equations.
 
 But most of the time, the behavior is similar.
 
-# References
+
 [^1]: It doesn't stop being magic just because you know how it works. Terry Pratchett, The Wee Free Men
 [^2]: Simplify as much as possible, but no more. Einstein
 [^3]: From the Einstein relation $D = \mu k T$ it does appear that the diffusion coefficient increases with temperature, however, the mobility decreases with temperature. I'm unsure of whether the mobility decreases with the same rate though.
-[^4]: 
